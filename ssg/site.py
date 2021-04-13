@@ -5,7 +5,7 @@ from ssg.parsers import Parser
 class Site():
     
     def __init__(self, source, dest, parsers = None) -> None:
-        self.parsers = parsers
+        self.parsers = parsers or []
         self.source = Path(source)
         self.dest = Path(dest)
     
@@ -32,6 +32,6 @@ class Site():
     def run_parser(self, path):
         parser = self.load_parser(path.suffix)
         if parser is not None:
-            parser.parse()
+            parser.parse(path, self.source, self.dest)
         else:
             print(NotImplemented)
